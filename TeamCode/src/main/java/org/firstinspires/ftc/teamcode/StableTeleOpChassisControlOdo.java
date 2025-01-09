@@ -68,9 +68,9 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 		leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back");
 		rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front");
 		rightBackDrive = hardwareMap.get(DcMotor.class, "right_back");
-		
+
 		odo = hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
-		
+
 		odo.setOffsets(-84.0, 168.0); // measure and come back to this
 		odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
 		odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
@@ -78,7 +78,7 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 
 		// DataLogger datalogger = new DataLogger("myDatalog.txt");
 
-		
+
 		// ########################################################################################
 		// !!!			IMPORTANT Drive Information. Test your motor directions.			!!!!!
 		// ########################################################################################
@@ -93,8 +93,8 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 		leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
 		rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
 		rightBackDrive.setDirection(DcMotor.Direction.REVERSE);
-		
-		
+
+
 
 		// Wait for the game to start (driver presses PLAY)
 		telemetry.addData("X offset", odo.getXOffset());
@@ -106,7 +106,7 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 
 		waitForStart();
 		runtime.reset();
-		
+
 		boolean prevRightBumper = false;
 		boolean prevLeftBumper = false;
 
@@ -126,14 +126,14 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 			Pose2D pos = odo.getPosition();
 			String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));
 			telemetry.addData("Position", data);
-			
+
 			Pose2D vel = odo.getVelocity();
 			String velocity = String.format(Locale.US,"{XVel: %.3f, YVel: %.3f, HVel: %.3f}", vel.getX(DistanceUnit.MM), vel.getY(DistanceUnit.MM), vel.getHeading(AngleUnit.DEGREES));
 			double[] acc = {vel.getX(DistanceUnit.MM) / loopTime, vel.getY(DistanceUnit.MM) / loopTime, vel.getHeading(AngleUnit.DEGREES) / loopTime};
 			String accelerationDisplay = String.format(Locale.US,"{XAcc: %.3f, YAcc: %.3f, HAcc: %.3f}", acc[0], acc[1], acc[1]);
 
 			double max;
-			
+
 			// POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
 			double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
 			double lateral =  gamepad1.left_stick_x;
@@ -158,7 +158,7 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 				leftBackPower   /= max;
 				rightBackPower  /= max;
 			}
-			
+
 			boolean rightBumper = gamepad1.right_bumper;
 			boolean leftBumper = gamepad1.left_bumper;
 			if (prevRightBumper && !rightBumper) { // on release of button
@@ -174,8 +174,8 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 			} else if (maxPowerMult > 1) {
 				maxPowerMult = 1;
 			}
-			
-			
+
+
 			leftFrontPower  *= maxPowerMult;
 			rightFrontPower *= maxPowerMult;
 			leftBackPower   *= maxPowerMult;
@@ -187,7 +187,7 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 			rightFrontPower = gamepad1.y ? 1.0 : 0.0;  // Y gamepad
 			rightBackPower  = gamepad1.b ? 1.0 : 0.0;  // B gamepad
 			*/
-			
+
 			if (gamepad1.x) { // Stop all motors button
 				leftFrontPower  = 0;
 				rightFrontPower = 0;
@@ -213,12 +213,12 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 			datalogger.addField(accelerationDisplay);
 			datalogger.addField(String.valueOf(leftFrontPower));
 			datalogger.newLine(); */
-			
+
 			telemetry.addData("Velocity", velocity);
 			telemetry.addData("Status", odo.getDeviceStatus());
 			telemetry.addData("Pinpoint Frequency", odo.getFrequency()); //prints/gets the current refresh rate of the Pinpoint
 			telemetry.addData("REV Hub Frequency: ", frequency); //prints the control system refresh rate
-			
+
 			telemetry.addData("Status", "Run Time: " + runtime.toString());
 			telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
 			telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
@@ -228,9 +228,10 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 			telemetry.addData("Power", maxPowerMult);
 			telemetry.update();
 		}
-		
+
 		leftFrontDrive.setPower(0);
 		leftBackDrive.setPower(0);
 		rightFrontDrive.setPower(0);
 		rightBackDrive.setPower(0);
-	}}
+	}
+}
