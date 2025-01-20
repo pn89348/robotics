@@ -28,14 +28,17 @@ public class TeleOpWithEverything extends LinearOpMode {
 
     //tuning values with ftc dash
 
-    public static double clawOpen=0;
-    public static double clawClose=0;
-    public static double armPosHome=0;
-    public static double armPosEnterSub=0;
-    public static double armPosPickupSub=0;
-    public static double armPosBasket=0;
-    public static int liftAscent=0;
-    public static int liftBasket=0;
+    public static double clawOpen=0.28;
+    public static double clawClose=0.5;
+    public static double armPosHome=1;
+    public static double armPosEnterSub=0.1461;
+    public static double armPosPickupSub=0.1028;
+    public static double armPosBasket=0.453;
+    public static double armPosAscent = 0.545;
+    public static int liftAscent=3190;
+    public static int liftBasket=3200;
+    public static int liftPullDown=2150;
+    public static double armPullDown = 0.25;
 
 
     @Override
@@ -122,15 +125,23 @@ public class TeleOpWithEverything extends LinearOpMode {
 
             if (gamepad2.y) {
                 arml.setPosition(armPosBasket);
+                armr.setPosition(armPosBasket);
             }
             if (gamepad2.b) {
                 arml.setPosition(armPosEnterSub);
+                armr.setPosition(armPosEnterSub);
             }
-            if (gamepad2.x) {
+            if (gamepad2.back) {
                 arml.setPosition(armPosHome);
+                armr.setPosition(armPosHome);
             }
             if (gamepad2.a) {
                 arml.setPosition(armPosPickupSub);
+                armr.setPosition(armPosPickupSub);
+            }
+            if (gamepad2.x){
+                arml.setPosition(armPosAscent);
+                armr.setPosition(armPosAscent);
             }
             //arm code end
 
@@ -153,9 +164,20 @@ public class TeleOpWithEverything extends LinearOpMode {
                 lift1.setPower(0.75);
                 lift2.setPower(0.75);
             }
-            if (gamepad2.dpad_right) {
+            if (gamepad2.dpad_down) {
                 lift1.setTargetPosition(0);
                 lift2.setTargetPosition(0);
+                lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift1.setPower(0.75);
+                lift2.setPower(0.75);
+            }
+
+            if (gamepad2.dpad_left){
+                lift1.setTargetPosition(liftPullDown);
+                lift2.setTargetPosition(liftPullDown);
+                arml.setPosition(armPullDown);
+                armr.setPosition(armPullDown);
                 lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 lift1.setPower(0.75);
