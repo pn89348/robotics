@@ -12,13 +12,12 @@ public class PIDTuning extends LinearOpMode {
 
     private PIDController controller;
 
-    public static double p =0.02,i=0, d =0;
-    public static double f=0.15;
+    public static double p =0,i=0, d =0;
+    public static double f=0;
 
 
     public static int target;
-    double ticksInMM = 537.7/120.0;
-    double targetInMM;
+    ;
     DcMotor lsl; // linear slides left
     DcMotor lsr; // linear slides right
 
@@ -40,7 +39,7 @@ public class PIDTuning extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             controller.setPID(p,i,d);
-            targetInMM = (int)(ticksInMM*target);
+
             //  double BothLSCurrentPos = lsl.getCurrentPosition()*0.5 + lsr.getCurrentPosition()*0.5;
 //            double lsAveragePos = BothLSCurrentPos;
 
@@ -53,9 +52,8 @@ public class PIDTuning extends LinearOpMode {
             lsl.setPower(power);
             lsr.setPower(power);
 
-            telemetry.addData("target in mm", targetInMM);
-            telemetry.addData(" normal target", target);
-            telemetry.addData("Arm Pos", lsAveragePos);
+            telemetry.addData("target", target);
+            telemetry.addData("LS Pos", lsAveragePos);
 
             telemetry.update();
         }
