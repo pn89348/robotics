@@ -11,7 +11,7 @@ public class DualLiftTest extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor lift1 = null;
     private DcMotor lift2 = null;
-    static int MAX_HEIGHT = 3150;
+    int MAX_HEIGHT = 3200;
     double oldTime = 0;
 
     double maxPowerMult = 0.5; // Set to 1 for full power
@@ -84,6 +84,8 @@ public class DualLiftTest extends LinearOpMode {
                 isRunningToPosition = false;
                 lift1.setPower(0); // Stop motor
                 lift2.setPower(0);
+                lift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                lift2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             }
 
             double newTime = getRuntime();
