@@ -3,10 +3,12 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import static java.lang.Math.abs;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+@TeleOp(name="TeleOp With Everything", group="Linear OpMode")
 public class TeleOpWithEverything extends LinearOpMode {
 
 
@@ -43,16 +45,16 @@ public class TeleOpWithEverything extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        lift1 = hardwareMap.get(DcMotor.class,"lift1");
-        lift2 = hardwareMap.get(DcMotor.class,"lift2");
+        lift1 = hardwareMap.get(DcMotor.class,"lift_left");
+        lift2 = hardwareMap.get(DcMotor.class,"lift_right");
 
         fl  = hardwareMap.get(DcMotor.class, "left_front");
         bl  = hardwareMap.get(DcMotor.class, "left_back");
         fr = hardwareMap.get(DcMotor.class, "right_front");
         br= hardwareMap.get(DcMotor.class, "right_back");
 
-        arml = hardwareMap.get(Servo.class,"arml");
-        armr = hardwareMap.get(Servo.class,"armr");
+        arml = hardwareMap.get(Servo.class,"arm_left");
+        armr = hardwareMap.get(Servo.class,"arm_right");
         claw = hardwareMap.get(Servo.class,"claw");
 
 
