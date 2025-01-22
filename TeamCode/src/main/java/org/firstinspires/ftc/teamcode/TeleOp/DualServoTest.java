@@ -21,7 +21,7 @@ public class DualServoTest extends LinearOpMode {
     private Servo servo2 = null;
     double oldTime = 0;
 
-//    double maxPowerMult = 0.5; // Set to 1 for full power
+//    double maxDrivePower = 0.5; // Set to 1 for full power
 //    double powerChangeSensitivity = 0.25;
 
     @Override

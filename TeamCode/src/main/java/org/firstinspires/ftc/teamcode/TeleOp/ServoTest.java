@@ -21,7 +21,7 @@ public class ServoTest extends LinearOpMode {
     private Servo servo1 = null;
     double oldTime = 0;
 
-//    double maxPowerMult = 0.5; // Set to 1 for full power
+//    double maxDrivePower = 0.5; // Set to 1 for full power
 //    double powerChangeSensitivity = 0.25;
 
     @Override
@@ -122,7 +122,7 @@ public class ServoTest extends LinearOpMode {
 //            telemetry.addData("Left Stick Y", gamepad1.left_stick_y);
 //            telemetry.addData("Left Stick X", gamepad1.left_stick_x);
 //            telemetry.addData("Right Stick", gamepad1.right_stick_x);
-//            telemetry.addData("Power", maxPowerMult);
+//            telemetry.addData("Power", maxDrivePower);
             telemetry.update();
             // Pose2D pos = odo.getPosition();
             // String data = String.format(Locale.US, "{X: %.3f, Y: %.3f, H: %.3f}", pos.getX(DistanceUnit.MM), pos.getY(DistanceUnit.MM), pos.getHeading(AngleUnit.DEGREES));
@@ -163,24 +163,24 @@ public class ServoTest extends LinearOpMode {
 //            boolean rightBumper = gamepad1.right_bumper;
 //            boolean leftBumper = gamepad1.left_bumper;
 //            if (prevRightBumper && !rightBumper) { // on release of button
-//                maxPowerMult += powerChangeSensitivity;
+//                maxDrivePower += powerChangeSensitivity;
 //            }
 //            if (prevLeftBumper && !leftBumper) {
-//                maxPowerMult -= powerChangeSensitivity;
+//                maxDrivePower -= powerChangeSensitivity;
 //            }
 //            prevRightBumper = rightBumper;
 //            prevLeftBumper = leftBumper;
-//            if (maxPowerMult < 0) {
-//                maxPowerMult = 0;
-//            } else if (maxPowerMult > 1) {
-//                maxPowerMult = 1;
+//            if (maxDrivePower < 0) {
+//                maxDrivePower = 0;
+//            } else if (maxDrivePower > 1) {
+//                maxDrivePower = 1;
 //            }
 //
 //
-//            leftFrontPower  *= maxPowerMult;
-//            rightFrontPower *= maxPowerMult;
-//            leftBackPower   *= maxPowerMult;
-//            rightBackPower  *= maxPowerMult;
+//            leftFrontPower  *= maxDrivePower;
+//            rightFrontPower *= maxDrivePower;
+//            leftBackPower   *= maxDrivePower;
+//            rightBackPower  *= maxDrivePower;
 //
 //			/*
 //			leftFrontPower  = gamepad1.x ? 1.0 : 0.0;  // X gamepad
