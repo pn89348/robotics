@@ -42,7 +42,7 @@ import java.util.Locale;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Stable TeleOp: Chassis Control w/ Odo", group="Linear OpMode")
+@TeleOp(name="Stable TeleOp: Chassis Control w/ Odo", group="Working TeleOp")
 
 public class StableTeleOpChassisControlOdo extends LinearOpMode {
 

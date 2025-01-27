@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Dual Servo Test", group="Linear OpMode")
+@TeleOp(name="Dual Servo Test", group="Component Testing")
 public class DualServoTest extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.

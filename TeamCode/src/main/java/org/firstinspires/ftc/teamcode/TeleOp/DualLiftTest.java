@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Dual Lift Test", group="Linear OpMode")
+@TeleOp(name="Dual Lift Test", group="Component Testing")
 public class DualLiftTest extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor lift1 = null;
     private DcMotor lift2 = null;
-    int MAX_HEIGHT = 3200;
+    int MAX_HEIGHT = 3100;
     double oldTime = 0;
 
     double maxPowerMult = 0.5; // Set to 1 for full power
@@ -19,13 +19,13 @@ public class DualLiftTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        lift1 = hardwareMap.get(DcMotor.class, "lift1");
+        lift1 = hardwareMap.get(DcMotor.class, "lift_right");
         lift1.setDirection(DcMotorSimple.Direction.REVERSE);
         lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        lift2 = hardwareMap.get(DcMotor.class, "lift2");
+        lift2 = hardwareMap.get(DcMotor.class, "lift_left");
         lift2.setDirection(DcMotorSimple.Direction.REVERSE);
         lift2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

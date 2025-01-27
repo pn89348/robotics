@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 import java.util.Locale;
 
-@TeleOp(name="TeleOp 2", group="Linear OpMode")
+@TeleOp(name="TeleOp 2", group="In Progress TeleOp")
 public class TeleOp2 extends LinearOpMode {
 
 	// Declare OpMode members for each of the 4 motors.

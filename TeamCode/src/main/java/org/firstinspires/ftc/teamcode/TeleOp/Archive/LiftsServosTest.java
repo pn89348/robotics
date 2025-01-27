@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Archive;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Disabled
 @TeleOp(name="Lifts and 3 Servos Test", group="Linear OpMode")
@@ -123,7 +124,7 @@ public class LiftsServosTest extends LinearOpMode {
             if (!liftRunningToPosition) {
                 double trigger = gamepad1.right_trigger - gamepad1.left_trigger; // number between -1 and 1
 
-                maxPower = Math.max(0, Math.min(maxPower, 1));
+                maxPower = Math.max(-1, Math.min(maxPower, 1));
                 double powerApplied = trigger * maxPower;
                 liftL.setPower(powerApplied);
                 liftR.setPower(powerApplied);
