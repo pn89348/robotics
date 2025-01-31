@@ -42,7 +42,7 @@ import java.util.Locale;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Stable TeleOp: Chassis Control w/ Odo", group="Working TeleOp")
+@TeleOp(name="Chassis Only Stable TeleOp", group="Working TeleOp")
 
 public class StableTeleOpChassisControlOdo extends LinearOpMode {
 
@@ -202,17 +202,6 @@ public class StableTeleOpChassisControlOdo extends LinearOpMode {
 			rightBackDrive.setPower(rightBackPower);
 
 			// Show the elapsed game time and wheel power.
-
-			/*datalogger.addField(String.valueOf(runtime.seconds()));
-			datalogger.addField(String.format(Locale.US, "%.3f", pos.getX(DistanceUnit.MM)));
-			datalogger.addField(String.format(Locale.US, "%.3f", pos.getY(DistanceUnit.MM)));
-			datalogger.addField(String.format(Locale.US, "%.3f", pos.getHeading(AngleUnit.DEGREES)));
-			datalogger.addField(String.format(Locale.US, "%.3f", vel.getX(DistanceUnit.MM)));
-			datalogger.addField(String.format(Locale.US, "%.3f", vel.getY(DistanceUnit.MM)));
-			datalogger.addField(String.format(Locale.US, "%.3f", vel.getHeading(AngleUnit.DEGREES)));
-			datalogger.addField(accelerationDisplay);
-			datalogger.addField(String.valueOf(leftFrontPower));
-			datalogger.newLine(); */
 
 			telemetry.addData("Velocity", velocity);
 			telemetry.addData("Status", odo.getDeviceStatus());
