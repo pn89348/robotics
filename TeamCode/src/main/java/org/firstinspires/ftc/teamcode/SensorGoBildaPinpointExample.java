@@ -85,7 +85,7 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         the tracking point the Y (strafe) odometry pod is. forward of center is a positive number,
         backwards is a negative number.
          */
-        odo.setOffsets(-84.0, 168.0); //these are tuned for 3110-0002-0001 Product Insight #1
+        odo.setOffsets(84.0, -168.0); //these are tuned for 3110-0002-0001 Product Insight #1
 
         /*
         Set the kind of pods used by your robot. If you're using goBILDA odometry pods, select either
@@ -102,7 +102,7 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         increase when you move the robot forward. And the Y (strafe) pod should increase when
         you move the robot to the left.
          */
-        odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
+        odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
 
         /*
@@ -113,14 +113,14 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         This is recommended before you run your autonomous, as a bad initial calibration can cause
         an incorrect starting value for x, y, and heading.
          */
-        //odo.recalibrateIMU();
+        odo.recalibrateIMU();
         odo.resetPosAndIMU();
 
         telemetry.addData("Status", "Initialized");
         telemetry.addData("X offset", odo.getXOffset());
         telemetry.addData("Y offset", odo.getYOffset());
         telemetry.addData("Device Version Number:", odo.getDeviceVersion());
-        telemetry.addData("Device SCalar", odo.getYawScalar());
+        telemetry.addData("Device Scalar", odo.getYawScalar());
         telemetry.update();
 
         // Wait for the game to start (driver presses START)

@@ -144,7 +144,7 @@ public class FullTeleOp2 extends LinearOpMode {
 
             odo = hardwareMap.get(GoBildaPinpointDriver.class,"pinpoint");
 
-            odo.setOffsets(-84.0, 168.0); // measure and come back to this
+            odo.setOffsets(84.0, -168.0); // measure and come back to this
             odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
             odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
             odo.resetPosAndIMU();

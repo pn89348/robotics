@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Archive;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -6,21 +6,16 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-// cd AppData\Local\Android\Sdk\platform-tools
-// adb connect 192.168.43.1:5555
+import com.qualcomm.robotcore.hardware.Servo;
 
 @Config
-@TeleOp(name = "V3 Arm PID W/ Lifts and Claw", group = "Testing and Tuning")
-public class ArmLiftClawTest3 extends LinearOpMode {
+@TeleOp(name = "V2 Arm PID W/ Lifts and Claw", group = "Testing and Tuning")
+public class ArmLiftClawTest2 extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private double oldTime = 0;
     private boolean prevRightBumper = false;
     private boolean prevLeftBumper = false;
-    private boolean prevX = false;
-    private boolean prevB = false;
 
     private DcMotorEx liftL = null;
     private DcMotorEx liftR = null;
@@ -30,31 +25,25 @@ public class ArmLiftClawTest3 extends LinearOpMode {
     double maxPower = 0.5;
     double powerChangeSensitivity = 0.25;
     public static int maxLiftHeight = 3100;
-    public static int minLiftHeight = 0;
-    public static int liftAscent = maxLiftHeight;
-    public static int liftBasket = maxLiftHeight;
-    public static double clawOpen = 0.2833; // slightly wider than horizontal sample
-    public static double clawClose = 0.5; // enough to hold sample in smallest orientation
+
     // arm pid variables
-    private static final double ARM_ENCODER_TICKS_PER_REV = 1992.6;
+    private static final double ENCODER_TICKS_PER_REV = 1992.6;
     // These values need to be determined during calibration:
-    private static int armVertical = -647;
-    private static int armAbsMin = 0; // Starting position
-    private static int armSafeMin = -100;
-    private static int armSafeMax = -1305;
-    public static int armSample = -1305;
-    public static int armSub = -1000; // determine this
-    public static int armBasket = 700;
-    private double armEncoderAngleCorrection = 90.0 / 80.0;
+    private static final int ENCODER_VALUE_AT_90_DEGREES = -647; // Change this to actual encoder value when arm is vertical
+    private double angleCorrection = 90.0 / 80.0;
     // Refined PID Constants
-    public static double kPArm = 0.002;  // Conservative starting value
-    public static double kIArm = 0.0006;    // Start with no integral term
-    public static double kDArm = 0.0005; // Conservative derivative
-    public static double kGArm = 0.12;   // Gravity compensation
-    public static double k2GArm = 0.19; // Gravity comp for PID function, kinetic kG
+    public static double kP = 0.002;  // Conservative starting value
+    public static double kI = 0.0;    // Start with no integral term
+    public static double kD = 0.0005; // Conservative derivative
+    public static double kG = 0.12;   // Gravity compensation
+    public static double k2G = 0.19; // Gravity comp for PID function, kinetic kG
+
+    // Safe encoder range
+    private static final int MIN_ENCODER_VALUE = -100; // Vertical position
+    private static final int MAX_ENCODER_VALUE = -1200; // Testing upper limit
     private double integralSum = 0;
     private double lastError = 0;
-    public static double maxArmPIDPower = 0.5;
+    private double maxPIDPower = 0.5;
     private ElapsedTime pidTimer = new ElapsedTime();
     private double lastTime = 0;
     private double armTargetPosition = -200;
@@ -63,12 +52,12 @@ public class ArmLiftClawTest3 extends LinearOpMode {
 
     private double getArmAngleInRadians() {
         // Convert current encoder position to angle relative to vertical (90 degrees)
-        double encoderDifference = arm.getCurrentPosition() - armVertical;
-        return -(encoderDifference / ARM_ENCODER_TICKS_PER_REV) * armEncoderAngleCorrection * 2 * Math.PI;
+        double encoderDifference = arm.getCurrentPosition() - ENCODER_VALUE_AT_90_DEGREES;
+        return -(encoderDifference / ENCODER_TICKS_PER_REV) * angleCorrection * 2 * Math.PI;
     }
 
 
-    private double calculateArmPID(double targetPosition, double maxPIDPower, double kP, double kI, double kD, double kG) {
+    private double calculateArmPID(double targetPosition) {
         double currentTime = pidTimer.seconds();
         double deltaTime = currentTime - lastTime;
         lastTime = currentTime;
@@ -77,7 +66,7 @@ public class ArmLiftClawTest3 extends LinearOpMode {
         double error = targetPosition - currentPosition;
 
         // Limit integral windup
-        if (Math.abs(error) < 150) {
+        if (Math.abs(error) < 100) {
             integralSum += error * deltaTime;
         } else {
             integralSum = 0;
@@ -89,7 +78,7 @@ public class ArmLiftClawTest3 extends LinearOpMode {
 
         // Gravity compensation
         double angleFromVertical = getArmAngleInRadians();
-        double gravityComp = kG * Math.sin(angleFromVertical);
+        double gravityComp = k2G * Math.sin(angleFromVertical);
 
         // PID calculation
         double output = (error * kP) + (integralSum * kI) + (derivative * kD) + gravityComp;
@@ -98,17 +87,6 @@ public class ArmLiftClawTest3 extends LinearOpMode {
 
         // Limit motor power for safety
         return Math.min(1, Math.max(output, -1));
-    }
-    private double calculateArmPID(double targetPosition, double maxPIDPower, double kP, double kI, double kD) {
-        return calculateArmPID(targetPosition, maxPIDPower, kP, kI, kD, k2GArm);
-    }
-
-    private double calculateArmPID(double targetPosition, double maxPIDPower) {
-        return calculateArmPID(targetPosition, maxPIDPower, kPArm, kIArm, kDArm, k2GArm);
-    }
-
-    private double calculateArmPID(double targetPosition) {
-        return calculateArmPID(targetPosition, maxArmPIDPower, kPArm, kIArm, kDArm, k2GArm);
     }
 
     @Override
@@ -153,25 +131,14 @@ public class ArmLiftClawTest3 extends LinearOpMode {
         while (opModeIsActive()) {
             boolean rightBumper = gamepad1.right_bumper;
             boolean leftBumper = gamepad1.left_bumper;
-            boolean x = gamepad1.x;
-            boolean b = gamepad1.b;
             if (prevRightBumper && !rightBumper) { // on release of button
                 maxPower += powerChangeSensitivity;
             }
             if (prevLeftBumper && !leftBumper) {
                 maxPower -= powerChangeSensitivity;
             }
-
-            if (x && !prevX) {
-                claw.setPosition(clawClose);
-            }
-            if (b && !prevB) {
-                claw.setPosition(clawOpen);
-            }
             prevRightBumper = rightBumper;
             prevLeftBumper = leftBumper;
-            prevX = x;
-            prevB = b;
 
             liftLPos = liftL.getCurrentPosition();
             liftRPos = liftR.getCurrentPosition();
@@ -233,10 +200,13 @@ public class ArmLiftClawTest3 extends LinearOpMode {
 
             // Arm control
             if (gamepad1.y) {
-                armTargetPosition = armVertical; // Test position 1
+                armTargetPosition = -1000; // Test position 1
                 armRunningToPosition = true;
             } else if (gamepad1.a) {
-                armTargetPosition = armSample; // Test position 2
+                armTargetPosition = -200; // Test position 2
+                armRunningToPosition = true;
+            } else if (gamepad1.b) {
+                armTargetPosition = ENCODER_VALUE_AT_90_DEGREES; // Vertical position
                 armRunningToPosition = true;
             }
 
@@ -247,16 +217,16 @@ public class ArmLiftClawTest3 extends LinearOpMode {
                 // Manual mode: Disable PID if more than 0.1 stick applied and apply manual power with gravity compensation
                 armRunningToPosition = false;
                 double angleFromVertical = getArmAngleInRadians();
-                double gravityComp = kGArm * Math.sin(angleFromVertical);
+                double gravityComp = kG * Math.sin(angleFromVertical);
                 armPower = Math.min(Math.max(leftStickY * maxPower + gravityComp, -1), 1);
             } else if (armRunningToPosition) {
                 // PID mode: Move to a target position
-                armTargetPosition = Math.max(Math.min(armTargetPosition, armSafeMin), armSafeMax);
+                armTargetPosition = Math.max(Math.min(armTargetPosition, MIN_ENCODER_VALUE), MAX_ENCODER_VALUE);
                 armPower = calculateArmPID(armTargetPosition);
             } else {
                 // Idle and Manual mode: Apply stick input and gravity compensation
                 double angleFromVertical = getArmAngleInRadians();
-                double gravityComp = kGArm * Math.sin(angleFromVertical);
+                double gravityComp = kG * Math.sin(angleFromVertical);
                 armPower = Math.min(Math.max(leftStickY * maxPower + gravityComp, -1), 1);
             }
 
@@ -268,7 +238,7 @@ public class ArmLiftClawTest3 extends LinearOpMode {
             // add arm power and gravity compensation to telemetry
 
             telemetry.addData("Arm Power:", armPower);
-            telemetry.addData("Gravity Comp:", kGArm * Math.sin(getArmAngleInRadians()));
+            telemetry.addData("Gravity Comp:", kG * Math.sin(getArmAngleInRadians()));
             telemetry.addData("Arm Angle (deg):", Math.toDegrees(getArmAngleInRadians()));
 
             double rightStickY = -gamepad1.right_stick_y;
@@ -287,10 +257,10 @@ public class ArmLiftClawTest3 extends LinearOpMode {
             telemetry.addData("Either Lift Motor Busy:", liftL.isBusy() || liftR.isBusy());
             telemetry.addData("", "");
             telemetry.addData("Arm Position:", arm.getCurrentPosition());
-            telemetry.addData("90 Degree Reference (Encoder):", armVertical);
+            telemetry.addData("90 Degree Reference (Encoder):", ENCODER_VALUE_AT_90_DEGREES);
             telemetry.addData("Arm Velocity (Encoder):", arm.getVelocity());
-            telemetry.addData("Arm Angular Velocity (deg/s):", Math.toDegrees(arm.getVelocity() / ARM_ENCODER_TICKS_PER_REV * 2 * Math.PI));
-                telemetry.addData("Arm Target Position:", armTargetPosition);
+            telemetry.addData("Arm Angular Velocity (deg/s):", Math.toDegrees(arm.getVelocity() / ENCODER_TICKS_PER_REV * 2 * Math.PI));
+            telemetry.addData("Arm Target Position:", armTargetPosition);
             telemetry.addData("Is Arm Running to Position:", armRunningToPosition);
             telemetry.addData("", "");
             telemetry.addData("Claw Position:", claw.getPosition());
