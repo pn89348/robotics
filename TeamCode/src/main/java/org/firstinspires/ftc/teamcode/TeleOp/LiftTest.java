@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Lift Test", group="Linear OpMode")
+@TeleOp(name="Lift Test", group="Component Testing")
 public class LiftTest extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor lift1 = null;
-    static int MAX_HEIGHT = 3150;
+    static int MAX_HEIGHT = -1142;
     double oldTime = 0;
 
     double maxPowerMult = 0.5; // Set to 1 for full power
@@ -18,8 +18,8 @@ public class LiftTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        lift1 = hardwareMap.get(DcMotor.class, "lift1");
-        lift1.setDirection(DcMotorSimple.Direction.REVERSE);
+        lift1 = hardwareMap.get(DcMotor.class, "arm");
+        lift1.setDirection(DcMotorSimple.Direction.FORWARD);
         lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lift1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lift1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -46,12 +46,12 @@ public class LiftTest extends LinearOpMode {
             } else if (gamepad1.y) {
                 lift1.setTargetPosition(MAX_HEIGHT);
                 lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift1.setPower(1);
+                lift1.setPower(maxPowerMult);
                 isRunningToPosition = true;
             } else if (gamepad1.a) {
-                lift1.setTargetPosition(0);
+                lift1.setTargetPosition(-100);
                 lift1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift1.setPower(1);
+                lift1.setPower(maxPowerMult);
                 isRunningToPosition = true;
             } else if (gamepad1.b) {
                 // Emergency stop

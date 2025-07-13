@@ -1,13 +1,16 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.Archive;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+@Disabled
+@Config
 @TeleOp(name = "PID")
 public class PIDTuning extends LinearOpMode {
 
@@ -19,7 +22,7 @@ public class PIDTuning extends LinearOpMode {
 
 
     public static int target;
-    ;
+
     DcMotor lsl; // linear slides left
     DcMotor lsr; // linear slides right
 
@@ -29,11 +32,13 @@ public class PIDTuning extends LinearOpMode {
         controller = new PIDController(p, i, d);
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
 
-        lsl = hardwareMap.get(DcMotor.class,"lift1");
-        lsr = hardwareMap.get(DcMotor.class,"lift2");
+        lsl = hardwareMap.get(DcMotor.class,"lift_left");
+        lsr = hardwareMap.get(DcMotor.class,"lift_right");
 
         lsr.setDirection(DcMotorSimple.Direction.REVERSE);
+        lsr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         lsl.setDirection(DcMotorSimple.Direction.REVERSE);
+        lsr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
 
@@ -59,6 +64,7 @@ public class PIDTuning extends LinearOpMode {
 
             telemetry.update();
         }
+
     }
 }
 

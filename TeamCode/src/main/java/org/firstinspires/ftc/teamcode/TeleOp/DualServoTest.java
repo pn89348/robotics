@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="Dual Servo Test", group="Linear OpMode")
+@TeleOp(name="Dual Servo Test", group="Component Testing")
 public class DualServoTest extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
@@ -21,7 +21,7 @@ public class DualServoTest extends LinearOpMode {
     private Servo servo2 = null;
     double oldTime = 0;
 
-//    double maxPowerMult = 0.5; // Set to 1 for full power
+//    double maxDrivePower = 0.5; // Set to 1 for full power
 //    double powerChangeSensitivity = 0.25;
 
     @Override
