@@ -190,4 +190,7 @@ public class TeleOpWithEverything extends LinearOpMode {
             //lift code end
         }
     }
+
+    private class DcMotor {
+    }
 }
