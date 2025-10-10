@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.test.IndividualTests
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Util.FTCLIB.LinearSlides;
+import org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.FTCLIB.LinearSlides;
 
 
 @TeleOp(name = "lsSubsystemTest")

@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.teamcode.Util.FTCLIB.submersibleSlides;
+import org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.FTCLIB.submersibleSlides;
 
 @TeleOp(name = "SubslidesTest")
 public class SubSlidesSubsystemTest extends LinearOpMode {

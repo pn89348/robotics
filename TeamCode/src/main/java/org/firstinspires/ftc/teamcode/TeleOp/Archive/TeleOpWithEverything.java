@@ -193,6 +193,5 @@ public class TeleOpWithEverything extends LinearOpMode {
         }
     }
 
-    private class DcMotor {
-    }
+
 }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.Mercurial;
 
 import androidx.annotation.NonNull;
 
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import java.lang.annotation.ElementType;
@@ -20,24 +21,24 @@ import dev.frozenmilk.mercurial.subsystems.SubsystemObjectCell;
 import kotlin.annotation.MustBeDocumented;
 
 public class ServoSubsystem implements Subsystem {
-    public static final ServoSubsystem INSTANCE = new ServoSubsystem();
 
+    public static final ServoSubsystem INSTANCE = new ServoSubsystem();
+    public static Servo s;
     private ServoSubsystem() {
     }
 
-    // the annotation class we use to attach this subsystem
+
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
     @MustBeDocumented
     @Inherited
-    public @interface Attach {
-    }
+    public @interface Attach{}
 
     private Dependency<?> dependency =
 
             Subsystem.DEFAULT_DEPENDENCY
 
-                    .and(new SingleAnnotation<>(LS.Attach.class));
+                    .and(new SingleAnnotation<>(Attach.class));
 
 
     @NonNull
@@ -51,85 +52,38 @@ public class ServoSubsystem implements Subsystem {
         this.dependency = dependency;
     }
 
-    private final SubsystemObjectCell<Servo> s = subsystemCell(() -> {
 
-        Servo s = FeatureRegistrar.getActiveOpMode().hardwareMap.get(Servo.class, "");
-
-        return s;
-    });
-
-    public static Servo getServo() {
-        return INSTANCE.s.get();
-    }
+//    private final SubsystemObjectCell<Servo> s = subsystemCell(() -> {
+//
+//        Servo s = FeatureRegistrar.getActiveOpMode().hardwareMap.get(Servo.class, "servo");
+//
+//        return s;
+//    });
+//
+//    public static Servo getServo() {
+//        return INSTANCE.s.get();
+//    }
 
     public void preUserInitHook(@NonNull Wrapper opMode) {
+        HardwareMap hmap = opMode.getOpMode().hardwareMap;
+        s = hmap.get(Servo.class,"servo");
         // default command should be set up here, not in the constructor
-        setDefaultCommand(MoveServo1());
+//        setDefaultCommand(MoveServo1(0));
 
     }
 
-    @Override
-    public void postUserInitHook(@NonNull Wrapper opMode) {
-
-    }
-
-    @Override
-    public void preUserInitLoopHook(@NonNull Wrapper opMode) {
-    }
-
-    @Override
-    public void preUserLoopHook(@NonNull Wrapper opMode) {
-    }
-
-    @Override
-    public void postUserInitLoopHook(@NonNull Wrapper opMode) {
-    }
-
-    @Override
-    public void postUserLoopHook(@NonNull Wrapper opMode) {
-    }
 
 
-    @Override
-    public void preUserStopHook(@NonNull Wrapper opMode) {
-    }
-
-    @Override
-    public void postUserStopHook(@NonNull Wrapper opMode) {
-    }
-
-
-    @Override
-    public void cleanup(@NonNull Wrapper opMode) {
-    }
-        Servo servo = getServo();
-    public static Lambda MoveServo1() {
-        return new Lambda("Move Servo Pos: 0.15")
+    public static Lambda MoveServo1(double pos) {
+        return new Lambda("Move Servo Pos:" + pos)
                 .setInit(() -> {
-                    INSTANCE.servo.setPosition(0.15);
+
+                    s.setPosition(pos);
                 })
                 .setExecute(() -> {
 
                 })
-                .setEnd(interupted -> {
-
-                })
-                .setFinish(() -> {
-                    return true;
-                })
-                .setInterruptible(false)
-                .setRequirements(INSTANCE)
-                .setRunStates(Wrapper.OpModeState.ACTIVE);
-    }
-    public static Lambda MoveServo2() {
-        return new Lambda("Move Servo Pos: 0.3")
-                .setInit(() -> {
-                    INSTANCE.servo.setPosition(0.3);
-                })
-                .setExecute(() -> {
-
-                })
-                .setEnd(interupted -> {
+                .setEnd(interrupted -> {
 
                 })
                 .setFinish(() -> {
@@ -140,5 +94,6 @@ public class ServoSubsystem implements Subsystem {
                 .setRunStates(Wrapper.OpModeState.ACTIVE);
     }
 }
+
 
 
