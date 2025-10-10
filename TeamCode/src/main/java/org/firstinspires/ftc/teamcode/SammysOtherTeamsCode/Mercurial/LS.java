@@ -4,9 +4,10 @@ package org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.Mercurial;
 
 import androidx.annotation.NonNull;
 
-import com.arcrobotics.ftclib.controller.PIDController;
+
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.seattlesolvers.solverslib.controller.PIDController;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;

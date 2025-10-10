@@ -1,10 +1,11 @@
 package org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.FTCLIB;
 
-import com.arcrobotics.ftclib.command.SubsystemBase;
+
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.seattlesolvers.solverslib.command.SubsystemBase;
 
-public class specClaw extends SubsystemBase{
+public class specClaw extends SubsystemBase {
 Servo specClaw;
     public specClaw(HardwareMap hmap,String Name){
         specClaw =  hmap.get(Servo.class,Name);
