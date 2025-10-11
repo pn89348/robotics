@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.FTCLIB;
+package org.firstinspires.ftc.teamcode.util.ftclib;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;

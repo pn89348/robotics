@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.Mercurial;
+package org.firstinspires.ftc.teamcode.util.mercurial;
 
 import androidx.annotation.NonNull;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -11,20 +13,19 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import dev.frozenmilk.dairy.core.FeatureRegistrar;
 import dev.frozenmilk.dairy.core.dependency.Dependency;
 import dev.frozenmilk.dairy.core.dependency.annotation.SingleAnnotation;
 import dev.frozenmilk.dairy.core.wrapper.Wrapper;
 import dev.frozenmilk.mercurial.commands.Lambda;
 import dev.frozenmilk.mercurial.subsystems.Subsystem;
-import dev.frozenmilk.mercurial.subsystems.SubsystemObjectCell;
 import kotlin.annotation.MustBeDocumented;
 
-public class ServoSubsystem implements Subsystem {
-
-    public static final ServoSubsystem INSTANCE = new ServoSubsystem();
+public class SubsystemTemplate implements Subsystem {
+    //ALWAYS CHANGE THIS TO THE RIGHT CLASS
+    public static final SubsystemTemplate INSTANCE = new SubsystemTemplate();
     public static Servo s;
-    private ServoSubsystem() {
+    public static DcMotorEx m;
+    private SubsystemTemplate() {
     }
 
 
@@ -37,8 +38,8 @@ public class ServoSubsystem implements Subsystem {
     private Dependency<?> dependency =
 
             Subsystem.DEFAULT_DEPENDENCY
-
-                    .and(new SingleAnnotation<>(Attach.class));
+//ALWAYS CHANGE THIS TO THE RIGHT CLASS
+                    .and(new SingleAnnotation<>(SubsystemTemplate.Attach.class));
 
 
     @NonNull
@@ -51,6 +52,8 @@ public class ServoSubsystem implements Subsystem {
     public void setDependency(@NonNull Dependency<?> dependency) {
         this.dependency = dependency;
     }
+
+//One WAY TO INIT SERVOS/ MOTORS(change a little bit of the code for motor)
 
 
 //    private final SubsystemObjectCell<Servo> s = subsystemCell(() -> {
@@ -67,14 +70,16 @@ public class ServoSubsystem implements Subsystem {
     public void preUserInitHook(@NonNull Wrapper opMode) {
         HardwareMap hmap = opMode.getOpMode().hardwareMap;
         s = hmap.get(Servo.class,"servo");
-        // default command should be set up here, not in the constructor
-//        setDefaultCommand(MoveServo1(0));
+        m = hmap.get(DcMotorEx.class,"motor");
+        // other stuff for init of motors/ servos go here
+
+
 
     }
 
 
 
-    public static Lambda MoveServo1(double pos) {
+    public static Lambda MoveServo(double pos) {
         return new Lambda("Move Servo Pos:" + pos)
                 .setInit(() -> {
 
@@ -93,7 +98,23 @@ public class ServoSubsystem implements Subsystem {
                 .setRequirements(INSTANCE)
                 .setRunStates(Wrapper.OpModeState.ACTIVE);
     }
+    public static Lambda MoveMotor(int pos) {
+        return new Lambda("Move Motor Pos:" + pos)
+                .setInit(() -> {
+
+                    m.setTargetPosition(pos);
+                })
+                .setExecute(() -> {
+
+                })
+                .setEnd(interrupted -> {
+
+                })
+                .setFinish(() -> {
+                    return true;
+                })
+                .setInterruptible(false)
+                .setRequirements(INSTANCE)
+                .setRunStates(Wrapper.OpModeState.ACTIVE);
+    }
 }
-
-
-

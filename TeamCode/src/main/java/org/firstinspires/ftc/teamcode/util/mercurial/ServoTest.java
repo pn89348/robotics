@@ -1,12 +1,11 @@
-package org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.Mercurial;
+package org.firstinspires.ftc.teamcode.util.mercurial;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import dev.frozenmilk.dairy.pasteurized.SDKGamepad;
 import dev.frozenmilk.mercurial.Mercurial;
 import dev.frozenmilk.mercurial.bindings.BoundGamepad;
-import dev.frozenmilk.mercurial.commands.groups.Advancing;
+
 @Mercurial.Attach
 @ServoSubsystem.Attach
 @TeleOp(name = "servoTest")

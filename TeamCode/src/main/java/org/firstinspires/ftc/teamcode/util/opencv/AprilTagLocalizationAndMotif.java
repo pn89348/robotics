@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.test;
+package org.firstinspires.ftc.teamcode.util.opencv;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
