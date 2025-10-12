@@ -13,6 +13,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import dev.frozenmilk.dairy.core.FeatureRegistrar;
 import dev.frozenmilk.dairy.core.dependency.Dependency;
 import dev.frozenmilk.dairy.core.dependency.annotation.SingleAnnotation;
 import dev.frozenmilk.dairy.core.wrapper.Wrapper;
@@ -23,8 +24,9 @@ import kotlin.annotation.MustBeDocumented;
 public class drivetrainSubsystem implements Subsystem {
 
     public static final drivetrainSubsystem INSTANCE = new drivetrainSubsystem();
-    public static DcMotorEx fr,fl,br,bl;
-    static double drive,turn,strafe,FLspeed,FRspeed,BLspeed,BRspeed;
+    private Gamepad gp1;
+    public  DcMotorEx fr,fl,br,bl;
+      double drive,turn,strafe,FLspeed,FRspeed,BLspeed,BRspeed;
 
     private drivetrainSubsystem() {
     }
@@ -57,6 +59,8 @@ public class drivetrainSubsystem implements Subsystem {
 
 
     public void preUserInitHook(@NonNull Wrapper opMode) {
+
+        setDefaultCommand(MoveChassis() );
         HardwareMap hmap = opMode.getOpMode().hardwareMap;
         fr = hmap.get(DcMotorEx.class,"right_front");
         fl = hmap.get(DcMotorEx.class,"left_front");
@@ -78,11 +82,14 @@ public class drivetrainSubsystem implements Subsystem {
 
 
     }
+    public void preUserInitLoopHook(@NonNull Wrapper opMode) {
+        gp1 = FeatureRegistrar.getActiveOpMode().gamepad1;
+    }
 
 
 
 
-    public static Lambda MoveMotor(Gamepad gp1) {
+    public  Lambda MoveChassis() {
         return new Lambda("DriveTrain")
                 .setInit(() -> {
 
@@ -122,7 +129,7 @@ public class drivetrainSubsystem implements Subsystem {
 
                 })
                 .setFinish(() -> {
-                    return true;
+                    return false;
                 })
                 .setInterruptible(false)
                 .setRequirements(INSTANCE)
