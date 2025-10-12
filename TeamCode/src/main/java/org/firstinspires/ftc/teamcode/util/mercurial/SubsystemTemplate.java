@@ -66,7 +66,7 @@ public class SubsystemTemplate implements Subsystem {
 //    public static Servo getServo() {
 //        return INSTANCE.s.get();
 //    }
-
+    //init hook
     public void preUserInitHook(@NonNull Wrapper opMode) {
         HardwareMap hmap = opMode.getOpMode().hardwareMap;
         s = hmap.get(Servo.class,"servo");
@@ -74,11 +74,34 @@ public class SubsystemTemplate implements Subsystem {
         // other stuff for init of motors/ servos go here
 
 
-
     }
+    //USE WHICH ONE YOU NEED
+    public void postUserInitHook(@NonNull Wrapper opMode) {}
+
+    // and you might put periodic code in these
+    @Override
+    public void preUserInitLoopHook(@NonNull Wrapper opMode) {}
+    @Override
+    public void preUserLoopHook(@NonNull Wrapper opMode) {}
+    // or these
+    @Override
+    public void postUserInitLoopHook(@NonNull Wrapper opMode) {}
+    @Override
+    public void postUserLoopHook(@NonNull Wrapper opMode) {}
+
+    // and stopping code can go in here
+    @Override
+    public void preUserStopHook(@NonNull Wrapper opMode) {}
+    // or here
+    @Override
+    public void postUserStopHook(@NonNull Wrapper opMode) {}
+
+    // see the feature dev notes on when to use cleanup vs postStop
+    @Override
+    public void cleanup(@NonNull Wrapper opMode) {}
 
 
-
+    //commands
     public static Lambda MoveServo(double pos) {
         return new Lambda("Move Servo Pos:" + pos)
                 .setInit(() -> {

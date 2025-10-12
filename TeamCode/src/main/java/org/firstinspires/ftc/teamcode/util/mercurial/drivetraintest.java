@@ -17,6 +17,6 @@ public class drivetraintest extends OpMode {
 
     @Override
     public void loop() {
-        drivetrainSubsystem.MoveMotor(gamepad1);
+
     }
 }
