@@ -12,10 +12,10 @@ import dev.frozenmilk.mercurial.commands.groups.Advancing;
 @intakeRollerSubsystem.Attach
 @TeleOp(name = "intakeSubsystemTest")
 public class intakeTest extends OpMode {
-    BoundGamepad gamepad2 = Mercurial.gamepad2();
 
     @Override
     public void init() {
+        BoundGamepad gamepad2 = Mercurial.gamepad2();
         gamepad2.leftBumper().onTrue(new Advancing(intakeRollerSubsystem.SpinIntake(),intakeRollerSubsystem.StopIntake()));
     }
 
