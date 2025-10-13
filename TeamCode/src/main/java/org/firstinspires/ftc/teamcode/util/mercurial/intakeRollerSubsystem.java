@@ -55,6 +55,7 @@ public class intakeRollerSubsystem implements Subsystem {
         HardwareMap hmap = opMode.getOpMode().hardwareMap;
 
         Roller = hmap.get(DcMotorEx.class,"intake");
+        Roller.setDirection(DcMotorEx.Direction.REVERSE);
         // other stuff for init of motors/ servos go here
 
     }
