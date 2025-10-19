@@ -7,7 +7,8 @@ import dev.frozenmilk.dairy.pasteurized.SDKGamepad;
 import dev.frozenmilk.mercurial.Mercurial;
 import dev.frozenmilk.mercurial.bindings.BoundGamepad;
 import dev.frozenmilk.mercurial.commands.groups.Advancing;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @SubSlides.Attach
 @Mercurial.Attach
 @TeleOp(name = "SubSlidesMerc")

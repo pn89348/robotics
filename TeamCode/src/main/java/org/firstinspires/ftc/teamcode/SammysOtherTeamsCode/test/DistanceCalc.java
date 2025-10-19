@@ -14,7 +14,8 @@ import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.opencv.core.RotatedRect;
 
 import java.util.List;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @Config
 public class DistanceCalc extends LinearOpMode {
     double width =1280;

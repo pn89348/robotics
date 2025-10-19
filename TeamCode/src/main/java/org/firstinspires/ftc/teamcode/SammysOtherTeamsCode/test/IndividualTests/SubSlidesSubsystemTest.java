@@ -5,7 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.FTCLIB.submersibleSlides;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @TeleOp(name = "SubslidesTest")
 public class SubSlidesSubsystemTest extends LinearOpMode {
     int ChannelSlidePos;

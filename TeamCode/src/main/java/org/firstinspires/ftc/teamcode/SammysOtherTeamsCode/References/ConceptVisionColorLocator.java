@@ -37,6 +37,8 @@ import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.opencv.core.RotatedRect;
 
 import java.util.List;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 
 /*
  * This OpMode illustrates how to use a video source (camera) to locate specifically colored regions
@@ -59,7 +61,7 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-
+@Disabled
 @TeleOp(name = "Concept: Vision Color-Locator", group = "Concept")
 public class ConceptVisionColorLocator extends LinearOpMode {
     //  MultipleTelemetry telemetry = new MultipleTelemetry(FtcDashboard.getInstance().getTelemetry());

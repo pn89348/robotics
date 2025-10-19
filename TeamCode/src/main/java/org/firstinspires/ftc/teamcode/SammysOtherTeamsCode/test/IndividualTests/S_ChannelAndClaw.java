@@ -6,7 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @Config
 @TeleOp(name = "IntakeTest")
 public class S_ChannelAndClaw extends LinearOpMode {

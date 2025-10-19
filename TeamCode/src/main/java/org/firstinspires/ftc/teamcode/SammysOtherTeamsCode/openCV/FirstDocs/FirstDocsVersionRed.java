@@ -16,7 +16,8 @@ import org.firstinspires.ftc.vision.opencv.ImageRegion;
 import org.opencv.core.RotatedRect;
 
 import java.util.List;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @TeleOp(name = "openCVredWithFTCJavaDocs")
 public class FirstDocsVersionRed extends LinearOpMode {
 

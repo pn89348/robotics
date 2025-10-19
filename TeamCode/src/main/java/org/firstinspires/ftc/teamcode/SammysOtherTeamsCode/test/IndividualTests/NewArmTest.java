@@ -5,7 +5,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import dev.frozenmilk.mercurial.commands.groups.Parallel;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 public class NewArmTest extends OpMode {
 Servo specClaw;
 Servo specPivot;

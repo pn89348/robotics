@@ -5,7 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.FTCLIB.LinearSlides;
 
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @TeleOp(name = "lsSubsystemTest")
 public class LSsubsystemTest extends LinearOpMode {
 

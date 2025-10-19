@@ -14,7 +14,8 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.List;
 
 public class AprilTagLocalizationAndMotif extends OpMode {
-
+    // PRob make a pid on bearing(angle) for turret
+    //CHECK DOCS IF U DONT REMEMBER, ME!!!!!
     public enum motifPatterns {
         PPG,
         PGP,
@@ -98,7 +99,7 @@ public class AprilTagLocalizationAndMotif extends OpMode {
 
         // Step through the list of detections and display info for each one.
         for (AprilTagDetection detections : currentDetections) {
-            if (detections.metadata != null) {
+            if (detections.metadata != null){
                 telemetry.addLine(String.format("\n==== (ID %d) %s", detections.id, detections.metadata.name));
                 telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)",
                         detections.robotPose.getPosition().x,

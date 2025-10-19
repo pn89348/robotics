@@ -23,7 +23,8 @@ import org.opencv.core.RotatedRect;
 import org.opencv.core.Scalar;
 
 import java.util.List;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @TeleOp(name = "DistanceCalcTest")
 public class DistanceCalcTuning  extends LinearOpMode {
 

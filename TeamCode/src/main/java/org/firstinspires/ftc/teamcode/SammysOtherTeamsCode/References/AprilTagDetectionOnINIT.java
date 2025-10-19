@@ -37,7 +37,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 import java.util.ArrayList;
 
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @TeleOp(name = "CVTEST")
 public class AprilTagDetectionOnINIT extends LinearOpMode
 {

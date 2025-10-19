@@ -4,7 +4,8 @@ package org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.test.IndividualTests
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 public class ScissorLinkagePrototype extends LinearOpMode {
 
   Servo Linkage;

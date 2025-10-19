@@ -6,7 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import dev.frozenmilk.dairy.pasteurized.SDKGamepad;
 import dev.frozenmilk.mercurial.Mercurial;
 import dev.frozenmilk.mercurial.bindings.BoundGamepad;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @Mercurial.Attach
 
 @LS.Attach

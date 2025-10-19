@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import dev.frozenmilk.mercurial.Mercurial;
 import dev.frozenmilk.mercurial.commands.groups.Advancing;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @SampleClaw.Attach
 @Mercurial.Attach
 @TeleOp(name = "sampleClawMerc")

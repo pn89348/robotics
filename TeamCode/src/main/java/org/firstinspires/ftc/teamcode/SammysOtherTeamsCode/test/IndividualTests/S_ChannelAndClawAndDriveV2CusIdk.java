@@ -9,7 +9,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @Config
 @TeleOp(name = "IntakeTestWithEnhancements(hopefully)")
 public class S_ChannelAndClawAndDriveV2CusIdk extends LinearOpMode {

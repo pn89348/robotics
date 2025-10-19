@@ -5,7 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.SammysOtherTeamsCode.FTCLIB.ClawPivot;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @TeleOp(name = "ClawPivotSubsystemTest")
 public class ClawPivotSubSystemTest extends LinearOpMode {
 

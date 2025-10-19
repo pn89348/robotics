@@ -27,7 +27,8 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+@Disabled
 @Autonomous(name = "StrafeIfNotDetected")
 public class StrafeIfNotDetected extends LinearOpMode {
     DcMotor fl, fr, bl, br;
