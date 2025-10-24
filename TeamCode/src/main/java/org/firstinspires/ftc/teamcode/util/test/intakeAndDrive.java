@@ -16,7 +16,7 @@ import dev.frozenmilk.mercurial.commands.groups.Advancing;
 @intakeRollerSubsystem.Attach
 @drivetrainSubsystem.Attach
 @TeleOp(name = "intake + Drive")
-public class intakeAndRoller extends OpMode {
+public class intakeAndDrive extends OpMode {
 
     @Override
     public void init() {

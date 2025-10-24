@@ -61,13 +61,12 @@ public class KickerSubsystem implements Subsystem {
 
 
     //commands
-    public static Lambda kick() {
-        return new Lambda("kick artifact")
+    public static Lambda kickStart() {
+        return new Lambda(" start kick artifact")
                 .setInit(() -> {
 
                     s.setPower(1);
-                    new Wait(0.5);
-                    s.setPower(0);
+
                 })
                 .setExecute(() -> {
 
@@ -82,5 +81,26 @@ public class KickerSubsystem implements Subsystem {
                 .setRequirements(INSTANCE)
                 .setRunStates(Wrapper.OpModeState.ACTIVE);
     }
+    public static Lambda kickstop() {
+        return new Lambda(" stopkick artifact")
+                .setInit(() -> {
+
+                    s.setPower(0);
+
+                })
+                .setExecute(() -> {
+
+                })
+                .setEnd(interrupted -> {
+
+                })
+                .setFinish(() -> {
+                    return true;
+                })
+                .setInterruptible(false)
+                .setRequirements(INSTANCE)
+                .setRunStates(Wrapper.OpModeState.ACTIVE);
+    }
+
 
 }
