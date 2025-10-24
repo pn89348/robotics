@@ -19,7 +19,8 @@ public class kicker extends OpMode {
     @Override
     public void init() {
         BoundGamepad gp2 = Mercurial.gamepad2();
-        gp2.leftBumper().onTrue(new Sequential(KickerSubsystem.kickStart(),new Wait(0.5),KickerSubsystem.kickstop()));
+        gp2.leftBumper().onTrue(new Sequential(KickerSubsystem.kickStart(),
+                new Wait(1.5),KickerSubsystem.kickstop()));
 
 
     }
