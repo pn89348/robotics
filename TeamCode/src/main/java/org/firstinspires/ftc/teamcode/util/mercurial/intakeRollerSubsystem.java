@@ -65,7 +65,7 @@ public class intakeRollerSubsystem implements Subsystem {
     public static Lambda SpinIntake() {
         return new Lambda("spin intake")
                 .setInit(() -> {
-                    Roller.setPower(1);
+                    Roller.setPower(0.7);
                 })
                 .setExecute(() -> {
 
@@ -101,7 +101,7 @@ public class intakeRollerSubsystem implements Subsystem {
     public static Lambda Extake() {
         return new Lambda("Extake")
                 .setInit(() -> {
-                    Roller.setPower(-1);
+                    Roller.setPower(-0.6);
                 })
                 .setExecute(() -> {
 

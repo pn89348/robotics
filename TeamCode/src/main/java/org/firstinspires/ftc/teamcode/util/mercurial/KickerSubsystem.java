@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.util.mercurial;
 
 import androidx.annotation.NonNull;
 
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -15,14 +15,13 @@ import dev.frozenmilk.dairy.core.dependency.Dependency;
 import dev.frozenmilk.dairy.core.dependency.annotation.SingleAnnotation;
 import dev.frozenmilk.dairy.core.wrapper.Wrapper;
 import dev.frozenmilk.mercurial.commands.Lambda;
-import dev.frozenmilk.mercurial.commands.util.Wait;
 import dev.frozenmilk.mercurial.subsystems.Subsystem;
 import kotlin.annotation.MustBeDocumented;
 
 public class KickerSubsystem implements Subsystem {
     //ALWAYS CHANGE THIS TO THE RIGHT CLASS
     public static final KickerSubsystem INSTANCE = new KickerSubsystem();
-    public static CRServo s;
+    public static Servo s;
     private KickerSubsystem() {
     }
 
@@ -53,7 +52,9 @@ public class KickerSubsystem implements Subsystem {
 
     public void preUserInitHook(@NonNull Wrapper opMode) {
         HardwareMap hmap = opMode.getOpMode().hardwareMap;
-        s = hmap.get(CRServo.class,"kicker");
+        s = hmap.get(Servo.class,"kicker");
+        //Default position
+        s.setPosition(0);
 
 
 
@@ -61,11 +62,11 @@ public class KickerSubsystem implements Subsystem {
 
 
     //commands
-    public static Lambda kickStart() {
-        return new Lambda(" start kick artifact")
+    public static Lambda kick() {
+        return new Lambda(" kick artifact")
                 .setInit(() -> {
 
-                    s.setPower(1);
+                    s.setPosition(0.5);
 
                 })
                 .setExecute(() -> {
@@ -77,15 +78,15 @@ public class KickerSubsystem implements Subsystem {
                 .setFinish(() -> {
                     return true;
                 })
-                .setInterruptible(false)
+                .setInterruptible(true)
                 .setRequirements(INSTANCE)
                 .setRunStates(Wrapper.OpModeState.ACTIVE);
     }
-    public static Lambda kickstop() {
+    public static Lambda defaultpos() {
         return new Lambda(" stopkick artifact")
                 .setInit(() -> {
 
-                    s.setPower(0);
+                    s.setPosition(0);
 
                 })
                 .setExecute(() -> {
@@ -97,7 +98,7 @@ public class KickerSubsystem implements Subsystem {
                 .setFinish(() -> {
                     return true;
                 })
-                .setInterruptible(false)
+                .setInterruptible(true)
                 .setRequirements(INSTANCE)
                 .setRunStates(Wrapper.OpModeState.ACTIVE);
     }

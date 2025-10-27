@@ -26,7 +26,7 @@ public class drivetrainSubsystem implements Subsystem {
     public static final drivetrainSubsystem INSTANCE = new drivetrainSubsystem();
     private Gamepad gp1;
     public  DcMotorEx fr,fl,br,bl;
-    public double slowSpeed = 0.25;
+    public double slowSpeed = 1;
     double drive,turn,strafe,FLspeed,FRspeed,BLspeed,BRspeed;
 
     private drivetrainSubsystem() {
@@ -97,7 +97,13 @@ public class drivetrainSubsystem implements Subsystem {
 
                 })
                 .setExecute(() -> {
-                    //Drive Train code Start===============================================================
+//                   // Vedu
+//                    drive = (gp1.right_stick_y * -1)* slowSpeed;
+//                    turn = (gp1.left_stick_x)*slowSpeed;
+//                    strafe = (gp1.right_stick_x)*slowSpeed ;
+
+                    // others
+
                     drive = (gp1.left_stick_y * -1)* slowSpeed;
                     turn = (gp1.right_stick_x)*slowSpeed;
                     strafe = (gp1.left_stick_x)*slowSpeed ;

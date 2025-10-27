@@ -20,6 +20,7 @@ public class intakeTest extends OpMode {
     public void init() {
         BoundGamepad gamepad2 = Mercurial.gamepad2();
         gamepad2.leftBumper().onTrue(new Advancing(intakeRollerSubsystem.SpinIntake(),intakeRollerSubsystem.StopIntake()));
+        gamepad2.rightBumper().onTrue(new Advancing(intakeRollerSubsystem.Extake(),intakeRollerSubsystem.StopIntake()));
     }
 
 

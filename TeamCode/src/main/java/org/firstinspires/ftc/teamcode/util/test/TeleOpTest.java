@@ -7,10 +7,14 @@ import org.firstinspires.ftc.teamcode.util.mercurial.FlyWheelSubsystem;
 import org.firstinspires.ftc.teamcode.util.mercurial.KickerSubsystem;
 import org.firstinspires.ftc.teamcode.util.mercurial.drivetrainSubsystem;
 import org.firstinspires.ftc.teamcode.util.mercurial.intakeRollerSubsystem;
+
+import java.util.function.DoubleSupplier;
+
 import dev.frozenmilk.mercurial.Mercurial;
 import dev.frozenmilk.mercurial.bindings.BoundGamepad;
 import dev.frozenmilk.mercurial.commands.groups.Advancing;
 import dev.frozenmilk.mercurial.commands.groups.Sequential;
+import dev.frozenmilk.mercurial.commands.util.IfElse;
 import dev.frozenmilk.mercurial.commands.util.Wait;
 
 @Mercurial.Attach
@@ -24,36 +28,45 @@ public class TeleOpTest extends OpMode {
 
     @Override
     public void init() {
+        double power = 0.75;
         BoundGamepad gamepad2 = Mercurial.gamepad2();
+        BoundGamepad gamepad1 = Mercurial.gamepad1();
+
+        //Gamepad 2
         // Needed Controls
         gamepad2.leftBumper().onTrue(new Advancing(intakeRollerSubsystem.SpinIntake(),intakeRollerSubsystem.StopIntake()));
         gamepad2.a().onTrue(new Advancing(intakeRollerSubsystem.Extake(),intakeRollerSubsystem.StopIntake()));
 
-        Sequential shootSequence = new Sequential(
-                FlyWheelSubsystem.Shoot(),
-                new Wait(0.5),
-                KickerSubsystem.kickStart(),
-                new Wait(1.5)
-        );
-        Sequential stopSequence = new Sequential(
-                KickerSubsystem.kickstop(),
-                new Wait(0.5),
-                FlyWheelSubsystem.stop()
-        );
-        gamepad2.rightBumper().onTrue(new Sequential(shootSequence,stopSequence));
+
+        gamepad2.rightBumper().onTrue(new Sequential(FlyWheelSubsystem.Shoot(),
+                new Wait(2), KickerSubsystem.kick(), new Wait(0.5),
+                KickerSubsystem.defaultpos()));
         // Overrides
             // Kicker
-        gamepad2.b().onTrue(new Sequential(KickerSubsystem.kickStart(),new Wait(1),KickerSubsystem.kickstop()));
+        gamepad2.b().onTrue(new Sequential(KickerSubsystem.kick(),new Wait(0.5),KickerSubsystem.defaultpos()));
             // Flywheel
-        gamepad2.x().onTrue(new Sequential(FlyWheelSubsystem.Shoot(),new Wait(0.5),FlyWheelSubsystem.stop()));
+        gamepad2.x().onTrue(new Advancing(FlyWheelSubsystem.Shoot(),FlyWheelSubsystem.stop()));
+
+        gamepad2.dpadUp().onTrue(FlyWheelSubsystem.updatePower(0.05));
 
 
-
-
+        // basic logic for IfElse i hope, Ill ask on discord
+//        new IfElse(()-> FlyWheelSubsystem.IsFlywheelOn(),
+//                FlyWheelSubsystem.stop(),
+//                FlyWheelSubsystem.Shoot()
+//        );
+        gamepad2.dpadDown().onTrue(FlyWheelSubsystem.updatePower(-0.05));
+        //Gamepad 1
+        gamepad1.dpadUp().onTrue(FlyWheelSubsystem.updatePower(0.05));
+        gamepad1.dpadDown().onTrue(FlyWheelSubsystem.updatePower(-0.05));
+        gamepad1.leftBumper().onTrue(new Advancing(intakeRollerSubsystem.SpinIntake(),intakeRollerSubsystem.StopIntake()));
     }
 
     @Override
     public void loop() {
+
+        telemetry.addData("Flywheel power:", FlyWheelSubsystem.getPower());
+        telemetry.addData("flywheel status:", FlyWheelSubsystem.IsFlywheelOn());
 
     }
 }
