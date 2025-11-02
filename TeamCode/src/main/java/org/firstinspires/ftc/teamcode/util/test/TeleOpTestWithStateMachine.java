@@ -1,23 +1,19 @@
-package org.firstinspires.ftc.teamcode.util.test;
+  package org.firstinspires.ftc.teamcode.util.test;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.util.mercurial.FlyWheelSubsystem;
 import org.firstinspires.ftc.teamcode.util.mercurial.KickerSubsystem;
+import org.firstinspires.ftc.teamcode.util.mercurial.Robot;
 import org.firstinspires.ftc.teamcode.util.mercurial.drivetrainSubsystem;
 import org.firstinspires.ftc.teamcode.util.mercurial.intakeRollerSubsystem;
-
-import java.util.function.DoubleSupplier;
 
 import dev.frozenmilk.mercurial.Mercurial;
 import dev.frozenmilk.mercurial.bindings.BoundGamepad;
 import dev.frozenmilk.mercurial.commands.groups.Advancing;
 import dev.frozenmilk.mercurial.commands.groups.Sequential;
-import dev.frozenmilk.mercurial.commands.util.IfElse;
-import dev.frozenmilk.mercurial.commands.util.StateMachine;
 import dev.frozenmilk.mercurial.commands.util.Wait;
-import dev.frozenmilk.util.cell.RefCell;
 
 @Mercurial.Attach
 @drivetrainSubsystem.Attach
@@ -25,12 +21,11 @@ import dev.frozenmilk.util.cell.RefCell;
 @KickerSubsystem.Attach
 @FlyWheelSubsystem.Attach
 @TeleOp(name = "TeleOpTest")
-public class TeleOpTest extends OpMode {
+public class TeleOpTestWithStateMachine extends OpMode {
 
 
     @Override
     public void init() {
-
 
 
 
